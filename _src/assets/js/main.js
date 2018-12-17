@@ -18,31 +18,57 @@ function searchSeries (){
     .then(response => response.json())
     .then(data => {
       //create a variable to store the data
-      const show = data[0].show;
+      // const show = data[0].show;
       //go through the list of elements (loop the array)
       for (let i = 0; i < data.length; i++){
         //store in variables the content of name and image from each show
-        const title = data[0].show.name;
-        const image = data[0].show.image;
-        const content = `
-      <li class="news__item">
-      <h2 class="news__title">${title}</h2>
-      <img class="news__image" src="${image}" alt="${title}">
-      </li>`;
-        //show the search result in the page
-        listResults.innerHTML += content;
+        const title = data[i].show.name;
+        const image = data[i].show.image;
 
         //If the result has no image, use filler image (AL PARECER FUNCIONA, REVÍSALO AL FINAL)
-        const img = document.querySelector('img');
-        const fillerImage = 'https://via.placeholder.com/210x295/cccccc/666666/?text=TV';
         if (image === null) {
-          img.src = fillerImage;
+          const fillerImage = 'https://via.placeholder.com/210x295/cccccc/666666/?text=TV';
+          const contentNull = `
+          <li class="series__item">
+          <h2 class="series__title">${title}</h2>
+          <img class="series__image" src="${fillerImage}" alt="${title}">
+          </li>`;
+          listResults.innerHTML += contentNull;
         } else {
-          img.src = data[0].show.image.medium;
+          const imgMedium = data[i].show.image.medium;
+          const contentMedium = `
+          <li class="news__item">
+          <h2 class="news__title">${title}</h2>
+          <img class="news__image" src="${imgMedium}" alt="${title}">
+          </li>`;
+          listResults.innerHTML += contentMedium;
         }
       }
+      selectedItem ();
     });
 }
-
 button.addEventListener('click', searchSeries);
+
+//create a function to select user favorite items
+function userFavs (event) {
+  const favItem = event.currentTarget;
+  favItem.classList.toggle('favs');
+}
+
+function selectedItem () {
+  const li = document.querySelectorAll('.news__item');
+  for (let i = 0; i <li.length; i++){
+    li[i].addEventListener('click', userFavs);
+  }
+}
+
+//store the information of user favorite items in the localStorage
+
+// const favorites = [];
+// const favItem = event.currentTarget;
+// favorites.innerHTML = favItem;
+// localStorage.setItem('favorites', JSON.stringify('favorites'));
+// console.log ('funciona');
+
+
 

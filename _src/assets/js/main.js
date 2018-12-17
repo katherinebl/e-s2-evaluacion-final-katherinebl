@@ -18,12 +18,12 @@ function searchSeries (){
     .then(response => response.json())
     .then(data => {
       //create a variable to store the data
-      const show = data.show;
+      const show = data[0].show;
       //go through the list of elements (loop the array)
       for (let i = 0; i < data.length; i++){
         //store in variables the content of name and image from each show
         const title = data[0].show.name;
-        const image = data[0].show.image.original;
+        const image = data[0].show.image;
         const content = `
       <li class="news__item">
       <h2 class="news__title">${title}</h2>
@@ -31,6 +31,15 @@ function searchSeries (){
       </li>`;
         //show the search result in the page
         listResults.innerHTML += content;
+
+        //If the result has no image, use filler image (AL PARECER FUNCIONA, REVÍSALO AL FINAL)
+        const img = document.querySelector('img');
+        const fillerImage = 'https://via.placeholder.com/210x295/cccccc/666666/?text=TV';
+        if (image === null) {
+          img.src = fillerImage;
+        } else {
+          img.src = data[0].show.image.medium;
+        }
       }
     });
 }

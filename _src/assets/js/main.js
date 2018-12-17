@@ -24,12 +24,13 @@ function searchSeries (){
         //store in variables the content of name and image from each show
         const title = data[i].show.name;
         const image = data[i].show.image;
+        // const id = data[i].show.id;
 
         //If the result has no image, use filler image (AL PARECER FUNCIONA, REVÍSALO AL FINAL)
         if (image === null) {
           const fillerImage = 'https://via.placeholder.com/210x295/cccccc/666666/?text=TV';
           const contentNull = `
-          <li class="series__item">
+          <li class="series__item" id="${title}">
           <h2 class="series__title">${title}</h2>
           <img class="series__image" src="${fillerImage}" alt="${title}">
           </li>`;
@@ -53,7 +54,35 @@ button.addEventListener('click', searchSeries);
 function userFavs (event) {
   const favItem = event.currentTarget;
   favItem.classList.toggle('favs');
+
+  //store the information of user favorite items in the localStorage
+
+
+  //Add favorite series to local storage --> SE BORRA CUANDO REINICIO
+  if (favItem.classList.contains('favs') === true) {
+    storedFavs.push(favItem.innerHTML);
+    console.log(storedFavs);
+
+  } else {
+    remove(storedFavs, favItem.innerHTML);
+    console.log(storedFavs);
+  }
+
+  //Remove favorite series from local storage
+  function remove (array, element) {
+    const index = array.indexOf(element);
+
+    if (index !== -1) {
+      array.splice(index, 1);
+    }
+  }
+
+  localStorage.setItem('storedFavs', JSON.stringify(storedFavs));
+  const  savedSeries= JSON.parse(localStorage.getItem('storedFavs'));
+  console.log(savedSeries.length);
 }
+let storedFavs = [];
+
 
 function selectedItem () {
   const li = document.querySelectorAll('.news__item');
@@ -61,14 +90,3 @@ function selectedItem () {
     li[i].addEventListener('click', userFavs);
   }
 }
-
-//store the information of user favorite items in the localStorage
-
-// const favorites = [];
-// const favItem = event.currentTarget;
-// favorites.innerHTML = favItem;
-// localStorage.setItem('favorites', JSON.stringify('favorites'));
-// console.log ('funciona');
-
-
-

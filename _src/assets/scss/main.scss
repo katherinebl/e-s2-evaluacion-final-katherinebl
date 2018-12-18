@@ -1,11 +1,66 @@
-// @import 'core/settings';
 
-// body {
-// 	background: url('../images/logo-adalab-80px.png') center center no-repeat $color-white;
-// 	height: 100vh;
-// }
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: content-box;
+}
+
+.box__searcher {
+  margin-top: 10px;
+  margin-bottom: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.label {
+  font-size: 22px;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.input{
+  width: 200px;
+  border-bottom: solid 2px black;
+}
+
+.btn {
+  background-color: #B53471;
+  color: #f7f1e3;
+}
+
+.results {
+  margin: 0;
+  padding: 2%;
+  list-style-type: none;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 30px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 1em;
+}
+
+.series__item {
+  padding: 20px;
+  background-color: pink;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.series__title {
+  margin-bottom: 0;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 14px;
+}
 
 .favs {
-  background-color: yellow;
-  border: solid 10px black;
+  background-color: #B53471;
+  color:white;
+  border: dotted 3px black;
 }
+
+

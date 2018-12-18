@@ -31,16 +31,16 @@ function searchSeries (){
           const fillerImage = 'https://via.placeholder.com/210x295/cccccc/666666/?text=TV';
           const contentNull = `
           <li class="series__item" id="${title}">
-          <h2 class="series__title">${title}</h2>
           <img class="series__image" src="${fillerImage}" alt="${title}">
+          <h2 class="series__title">${title}</h2>
           </li>`;
           listResults.innerHTML += contentNull;
         } else {
           const imgMedium = data[i].show.image.medium;
           const contentMedium = `
-          <li class="news__item">
-          <h2 class="news__title">${title}</h2>
-          <img class="news__image" src="${imgMedium}" alt="${title}">
+          <li class="series__item">
+          <img class="series__image" src="${imgMedium}" alt="${title}">
+          <h2 class="series__title">${title}</h2>
           </li>`;
           listResults.innerHTML += contentMedium;
         }
@@ -85,7 +85,7 @@ let storedFavs = [];
 
 
 function selectedItem () {
-  const li = document.querySelectorAll('.news__item');
+  const li = document.querySelectorAll('.series__item');
   for (let i = 0; i <li.length; i++){
     li[i].addEventListener('click', userFavs);
   }

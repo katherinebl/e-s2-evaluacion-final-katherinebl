@@ -47,27 +47,10 @@ function searchSeries (){
 }
 button.addEventListener('click', searchSeries);
 
-//Declares an array to add favorites before pass them to local storage
-let storedFavs = [];
-
 /* Create a function to select user favorite items (series) */
 function userFavs (event) {
   const favItem = event.currentTarget;
   favItem.classList.toggle('favs');
-
-  //add favorite series to the array
-  if (favItem.classList.contains('favs')) {
-    storedFavs.push(favItem.id);
-
-  //remove favorite series to the array
-  } else {
-    const index = storedFavs.indexOf(favItem.id);
-    storedFavs.splice(index, 1);
-  }
-  //store the information of user favorite series in local storage
-  localStorage.setItem('storedFavs', JSON.stringify(storedFavs));
-  const savedSeries = JSON.parse(localStorage.getItem('storedFavs'));
-  // console.log(savedSeries);
 }
 
 //When the user clicks an item, the item is highlighted and vice versa

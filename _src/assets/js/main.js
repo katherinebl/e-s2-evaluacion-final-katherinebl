@@ -67,7 +67,7 @@ function userFavs (event) {
   //store the information of user favorite series in local storage
   localStorage.setItem('storedFavs', JSON.stringify(storedFavs));
   const savedSeries = JSON.parse(localStorage.getItem('storedFavs'));
-  console.log(savedSeries);
+  // console.log(savedSeries);
 }
 
 //When the user clicks an item, the item is highlighted and vice versa

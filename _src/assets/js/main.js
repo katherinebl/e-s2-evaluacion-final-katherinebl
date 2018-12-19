@@ -5,6 +5,7 @@ const apiUrl = 'http://api.tvmaze.com/search/shows?q=';
 const input = document.querySelector('.input');
 const button = document.querySelector('.btn');
 const listResults = document.querySelector('.results');
+const searchMsg = document.querySelector('.results__msg');
 
 /* Search using API */
 function searchSeries (){
@@ -16,12 +17,20 @@ function searchSeries (){
   fetch(apiUrl + userSearch)
     .then(response => response.json())
     .then(data => {
-
+      searchMsg.innerHTML = data.length;
       //go through the list of elements (loop the array)
       for (let i = 0; i < data.length; i++){
         //store in variables the content (name and image) from each show
         const title = data[i].show.name;
         const image = data[i].show.image;
+        const genres = data[i].show.genres;
+        let contentGenres = "";
+
+        for (let j = 0; j < genres.length; j++) {
+          contentGenres += genres[j]+ ', ';
+
+        }
+        console.log(contentGenres);
 
         //if the result has no image, use filler image
         if (image === null) {
@@ -30,6 +39,7 @@ function searchSeries (){
           <li class="series__item" id="${title}">
           <img class="series__image" src="${fillerImage}" alt="${title}">
           <h2 class="series__title">${title}</h2>
+          <p class="series__genre">${contentGenres}</p>
           </li>`;
           listResults.innerHTML += contentNull;
         } else {
@@ -38,6 +48,7 @@ function searchSeries (){
           <li class="series__item" id="${title}">
           <img class="series__image" src="${imgMedium}" alt="${title}">
           <h2 class="series__title">${title}</h2>
+          <p class="series__genre">${contentGenres}</p>
           </li>`;
           listResults.innerHTML += contentMedium;
         }
@@ -60,3 +71,9 @@ function selectedItem () {
     item[i].addEventListener('click', userFavs);
   }
 }
+
+function hideResults () {
+  listResults.classList.toggle('hidden');
+}
+
+searchMsg.addEventListener('click', hideResults);
